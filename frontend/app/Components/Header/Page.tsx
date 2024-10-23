@@ -30,7 +30,7 @@ export default function Page() {
                             <Link href="/about" className="hover:border-b-2 hover:border-black transition duration-300">About</Link>
                         </li>
                         <li>
-                            <Link href="/signup" className="hover:border-b-2 hover:border-black transition duration-300">Sign Up</Link>
+                            <Link href="/" className="hover:border-b-2 hover:border-black transition duration-300">Sign Up</Link>
                         </li>
                     </ul>
                 </div>
@@ -58,7 +58,7 @@ export default function Page() {
                             <Link href="/about" className="hover:border-b-2 hover:border-black transition duration-300">About</Link>
                         </li>
                         <li>
-                            <Link href="/signup" className="hover:border-b-2 hover:border-black transition duration-300">Sign Up</Link>
+                            <Link href="/" className="hover:border-b-2 hover:border-black transition duration-300">Sign Up</Link>
                         </li>
                     </ul>
                 </div>
