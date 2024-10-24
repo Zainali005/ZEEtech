@@ -1,11 +1,49 @@
+"use client";
 import SideImage from "@/app/Assets/Login/Side Image.png";
 import Image from "next/image";
 import Link from "next/link";
 import Footer from "./Components/Footer/Page";
 import Header from "./Components/Header/Page";
-
+import { API_URL } from "./utils/api";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 export default function Home() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // Handle sign-up logic
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+
+    // Perform basic validation
+    if (!name || !email || !password) {
+      toast.error("Please fill in all fields.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_URL}/v1/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, password }),
+        credentials: "include",
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Sign-up failed");
+      }
+
+      toast.success("Account created successfully!");
+    } catch (error) {
+      toast.error(`Error: ${error.message}`);
+    }
+  };
+
   return (
     <>
       <Header />
@@ -24,22 +62,28 @@ export default function Home() {
             <h5 className="text-2xl font-bold mb-2 text-center">Create an account</h5>
             <p className="text-gray-500 mb-6 text-center">Enter your details below</p>
 
-            <div className="w-full max-w-[400px]">
+            <form className="w-full max-w-[400px]" onSubmit={handleSignUp}>
               <div className="mb-4">
                 <input
                   type="text"
                   id="name"
                   placeholder="Name"
                   className="w-full px-4 py-2 border-b border-gray-300 focus:outline-none focus:border-blue-500 focus:border-b-2 transition duration-200"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)} // Update name state
+                  required
                 />
               </div>
 
               <div className="mb-4">
                 <input
-                  type="text"
+                  type="email"
                   id="email"
                   placeholder="Email or Phone Number"
                   className="w-full px-4 py-2 border-b border-gray-300 focus:outline-none focus:border-blue-500 focus:border-b-2 transition duration-200"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
               </div>
 
@@ -49,18 +93,30 @@ export default function Home() {
                   id="password"
                   placeholder="Password"
                   className="w-full px-4 py-2 border-b border-gray-300 focus:outline-none focus:border-blue-500 focus:border-b-2 transition duration-200"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
                 />
               </div>
 
-              <button className="w-full bg-[#DB4444] text-white py-2 rounded-md hover:bg-red-800 transition duration-200">
+              <button
+                type="submit"
+                className="w-full bg-[#DB4444] text-white py-2 rounded-md hover:bg-red-800 transition duration-200"
+              >
                 Create Account
               </button>
               <button className="w-full mt-2 border bg-white text-black py-2 rounded-md hover:bg-red-100 transition duration-200">
                 Sign Up with Google
               </button>
-              <div className="text-center my-3">
-                <p>Already have an account? <Link href="/Login" className="text-blue-500 hover:underline">Log in</Link></p>
-              </div>
+            </form>
+
+            <div className="text-center my-3">
+              <p>
+                Already have an account?{" "}
+                <Link href="/Login" className="text-blue-500 hover:underline">
+                  Log in
+                </Link>
+              </p>
             </div>
           </div>
         </div>

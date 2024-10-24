@@ -2,9 +2,33 @@
 import Link from "next/link";
 import { FiSearch, FiHeart, FiShoppingCart, FiMenu, FiX } from "react-icons/fi";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { API_URL } from "@/app/utils/api";
+import { toast } from "react-hot-toast"; 
 
 export default function Page() {
     const [isOpen, setIsOpen] = useState(false);
+    const router = useRouter();
+
+    const handleLogout = async () => {
+        try {
+            const response = await fetch(`${API_URL}/logout`, {
+                method: "POST",
+                credentials: "include",
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                toast.success("Logged out successfully.");
+                router.push("/Login");
+            } else {
+                toast.error(`Logout failed: ${data.message}`);
+            }
+        } catch (error) {
+            toast.error(`Error logging out: ${error.message}`);
+        }
+    };
 
     return (
         <>
@@ -20,16 +44,27 @@ export default function Page() {
                 <div className={`hidden lg:flex flex-grow justify-center`}>
                     <ul className="flex flex-row gap-8">
                         <li>
-                            <Link href="/" className="hover:border-b-2 hover:border-black transition duration-300">Home</Link>
+                            <Link href="/" className="hover:border-b-2 hover:border-black transition duration-300">
+                                Home
+                            </Link>
                         </li>
                         <li>
-                            <Link href="/contact" className="hover:border-b-2 hover:border-black transition duration-300">Contact</Link>
+                            <Link href="/contact" className="hover:border-b-2 hover:border-black transition duration-300">
+                                Contact
+                            </Link>
                         </li>
                         <li>
-                            <Link href="/about" className="hover:border-b-2 hover:border-black transition duration-300">About</Link>
+                            <Link href="/about" className="hover:border-b-2 hover:border-black transition duration-300">
+                                About
+                            </Link>
                         </li>
                         <li>
-                            <Link href="/" className="hover:border-b-2 hover:border-black transition duration-300">Sign Up</Link>
+                            <button
+                                onClick={handleLogout}
+                                className="hover:border-b-2 hover:border-black transition duration-300"
+                            >
+                                Logout
+                            </button>
                         </li>
                     </ul>
                 </div>
@@ -50,16 +85,27 @@ export default function Page() {
                 <div className="flex flex-col items-center mt-4 space-y-4">
                     <ul className="flex flex-col gap-4 text-center">
                         <li>
-                            <Link href="/" className="hover:border-b-2 hover:border-black transition duration-300">Home</Link>
+                            <Link href="/" className="hover:border-b-2 hover:border-black transition duration-300">
+                                Home
+                            </Link>
                         </li>
                         <li>
-                            <Link href="/contact" className="hover:border-b-2 hover:border-black transition duration-300">Contact</Link>
+                            <Link href="/contact" className="hover:border-b-2 hover:border-black transition duration-300">
+                                Contact
+                            </Link>
                         </li>
                         <li>
-                            <Link href="/about" className="hover:border-b-2 hover:border-black transition duration-300">About</Link>
+                            <Link href="/about" className="hover:border-b-2 hover:border-black transition duration-300">
+                                About
+                            </Link>
                         </li>
                         <li>
-                            <Link href="/" className="hover:border-b-2 hover:border-black transition duration-300">Sign Up</Link>
+                            <button
+                                onClick={handleLogout}
+                                className="hover:border-b-2 hover:border-black transition duration-300"
+                            >
+                                Logout
+                            </button>
                         </li>
                     </ul>
                 </div>
