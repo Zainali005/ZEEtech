@@ -39,7 +39,7 @@ export default function Home() {
     return (
         <>
             <Header />
-            <div className="w-full lg:w-[1024px] xl:w-[1305px] h-auto lg:h-[781px] mx-auto flex flex-col lg:flex-row">
+            <div className="w-full lg:w-[1024px] xl:w-[1263px] h-auto lg:h-[781px] mx-auto flex flex-col lg:flex-row">
                 <div className="w-full lg:w-1/2 flex items-center justify-center mb-8 lg:mb-0">
                     <Image
                         src={SideImage}

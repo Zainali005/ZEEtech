@@ -17,7 +17,7 @@ const sendResetEmail = async (to, token) => {
     to,
     subject: "Password Reset for ZeeTech",
     html: `<p>You requested a password reset.</p>
-               <p>Click this <a href="${url}">${url}</a> to set a new password.</p>`,
+               <p>Click this <a href="${url}">Click here</a> to set a new password.</p>`,
   });
 };
 

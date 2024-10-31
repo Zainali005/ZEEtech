@@ -21,7 +21,7 @@ export default function Page() {
 
             if (response.ok) {
                 toast.success("Logged out successfully.");
-                router.push("/Login");
+                router.push("/login");
             } else {
                 toast.error(`Logout failed: ${data.message}`);
             }

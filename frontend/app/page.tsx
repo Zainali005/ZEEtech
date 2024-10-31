@@ -113,7 +113,7 @@ export default function Home() {
             <div className="text-center my-3">
               <p>
                 Already have an account?{" "}
-                <Link href="/Login" className="text-blue-500 hover:underline">
+                <Link href="/login" className="text-blue-500 hover:underline">
                   Log in
                 </Link>
               </p>
